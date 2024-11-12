@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LINK CCTV</title>
+  <style>
+    /* Reset some basic styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #2b2f33; /* ปรับพื้นหลังสีเทาเข้ม */
+      color: #ddd; /* สีข้อความ */
+    }
+
+    /* Container Styling */
+    .container {
+      background: #1e1e1e; /* พื้นหลังสีดำเข้มของกล่อง */
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #5aa9e6; /* สีฟ้าสำหรับหัวข้อ */
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #aaa; /* สีเทาอ่อนสำหรับข้อความ */
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: 1px solid #444;
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: #333; /* พื้นหลังสีเข้ม */
+      color: #ddd; /* สีข้อความใน input */
+    }
+
+    /* Button Styling for SUB Options */
+    .sub-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1.5rem;
+    }
+
+    .sub-buttons button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      background-color: #5aa9e6; /* สีฟ้าสำหรับปุ่ม */
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100px;
+    }
+
+    .sub-buttons button:hover {
+      background-color: #4a90e2; /* สีฟ้าเข้มเมื่อ hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>LINK CCTV</h2>
+    
+    <!-- Input for IP address -->
+    <label for="ipAddress">ใส่เลข IP CCTV</label>
+    <input type="text" id="ipAddress" placeholder="เช่น 10.250.1.2" required>
+    
+    <!-- Buttons to select SUB -->
+    <div class="sub-buttons">
+      <button onclick="generateLink('.108:8000')">SUB 1</button>
+      <button onclick="generateLink('.109:8001')">SUB 2</button>
+      <button onclick="generateLink('.110:8002')">SUB 3</button>
+    </div>
+  </div>
+
+  <script>
+    function generateLink(subValue) {
+      // Get the IP value
+      const ipAddress = document.getElementById("ipAddress").value;
+      
+      // Split the IP to replace the last segment
+      const ipParts = ipAddress.split(".");
+      if (ipParts.length !== 4) {
+        alert("Please enter a valid IP address.");
+        return;
+      }
+      
+      // Replace the last part of the IP and create the final URL
+      const baseIp = ipParts.slice(0, 3).join("."); // Get the first three segments
+      const finalUrl = `http://${baseIp}${subValue}`;
+      
+      // Debugging output
+      console.log("Final URL:", finalUrl);
+      
+      // Open the link in a new tab
+      window.open(finalUrl, "_blank");
+    }
+  </script>
+</body>
+</html>
